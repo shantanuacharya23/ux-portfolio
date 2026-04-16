@@ -12,12 +12,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        body {
+        html, body {
             margin: 0;
-            height: 100vh;
+            padding: 0;
+            height: 100%;
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: #ffffff;
+        }
+
+        /* Mobile-safe full height */
+        body {
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
         }
@@ -44,7 +50,7 @@
 
         footer {
             text-align: center;
-            padding: 15px 10px;
+            padding: 12px 10px;
             font-size: 0.9rem;
             color: rgba(255,255,255,0.5);
         }
@@ -62,13 +68,14 @@
     <div class="main-content">
         <div>
             <h1>Welcome to my website</h1>
+            <p></p>
             <p class="subtext">Website in progress. Will launch soon.</p>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        © 2026 Shantanu Acharya. All rights reserved.
+        © Copyright 2026. Shantanu Acharya. All rights reserved.
     </footer>
 
     <!-- Bootstrap JS -->
