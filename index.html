@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MT0J9RRR4C"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
@@ -16,36 +15,171 @@
     <meta name="color-scheme" content="light dark">
     <title>Shantanu Acharya</title>
 
-    <!-- Favicon -->
     <link rel="icon" href="icons/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 
-    <!-- Bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css?v=3" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css?v=3" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css?v=4" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css?v=4" rel="stylesheet">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="css/styles.css?v=3">
+    <link rel="stylesheet" href="css/styles.css?v=4">
 </head>
 <body>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <div>
-            <!-- Logo -->
-            <img src="images/logo_transparent.png" alt="Logo" class="logo">
+    <section class="hero-section">
+        <div class="main-content">
+            <div>
+                <img src="images/logo_transparent.png" alt="Logo" class="logo">
+                <p class="designer-name">Shantanu Acharya</p>
+                <h1>Designing scalable enterprise experiences.</h1>
+                <p class="subtext">Lead UX/UI Designer focused on SaaS platforms, mobile apps, and responsive products.</p>
+                <div class="scroll-indicator">
+                    <p class="mb-1 text-uppercase tracking-wider">Explore Portfolio</p>
+                    <i class="bi bi-chevron-down bouncing-arrow"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio-section">
+        <div class="container">
+            <h2 class="section-title">Selected UX Case Studies</h2>
+            <p class="section-subtitle">Designing scalable experiences across enterprise systems, mobile apps, and responsive platforms.</p>
             
-            <h1>I love designing stuff...</h1>
-            <p class="subtext">Website in progress. Will launch soon.</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-card" data-pdf="pdfs/case-study-1.pdf">
+                    <div class="card-image-wrapper">
+                        <img src="images/portfolio-1.webp" alt="CheckWise enterprise dashboard redesign" class="portfolio-img">
+                        <div class="card-overlay">
+                            <span class="btn-view-pdf">Read Case Study <i class="bi bi-arrow-up-right-circle-fill ms-2"></i></span>
+                        </div>
+                    </div>
+                    <div class="portfolio-card-details">
+                        <span class="portfolio-tag">ENTERPRISE UX</span>
+                        <h3 class="portfolio-card-title">CheckWise Dashboard Redesign</h3>
+                        <p class="portfolio-card-desc">Modernising a legacy audit dashboard through improved visual hierarchy, KPI clarity, and enterprise workflow optimisation.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-pdf="pdfs/case-study-2.pdf">
+                    <div class="card-image-wrapper">
+                        <img src="images/portfolio-2.webp" alt="AuditIQ audit workflow dashboard" class="portfolio-img">
+                        <div class="card-overlay">
+                            <span class="btn-view-pdf">Read Case Study <i class="bi bi-arrow-up-right-circle-fill ms-2"></i></span>
+                        </div>
+                    </div>
+                    <div class="portfolio-card-details">
+                        <span class="portfolio-tag">AUDIT & COMPLIANCE</span>
+                        <h3 class="portfolio-card-title">AuditIQ Platform</h3>
+                        <p class="portfolio-card-desc">Redesigning enterprise audit workflows with structured control tracking, faster scanability, and operational accountability.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-pdf="pdfs/case-study-3.pdf">
+                    <div class="card-image-wrapper">
+                        <img src="images/portfolio-3.webp" alt="KPMG Tax Navigator mobile app" class="portfolio-img">
+                        <div class="card-overlay">
+                            <span class="btn-view-pdf">Read Case Study <i class="bi bi-arrow-up-right-circle-fill ms-2"></i></span>
+                        </div>
+                    </div>
+                    <div class="portfolio-card-details">
+                        <span class="portfolio-tag">MOBILE PRODUCT DESIGN</span>
+                        <h3 class="portfolio-card-title">KPMG Tax Navigator</h3>
+                        <p class="portfolio-card-desc">Designing a public-facing mobile experience for curated tax insights, personalised discovery, and enterprise-aligned usability.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-pdf="pdfs/case-study-4.pdf">
+                    <div class="card-image-wrapper">
+                        <img src="images/portfolio-4.webp" alt="Nomad Notes travel website" class="portfolio-img">
+                        <div class="card-overlay">
+                            <span class="btn-view-pdf">Read Case Study <i class="bi bi-arrow-up-right-circle-fill ms-2"></i></span>
+                        </div>
+                    </div>
+                    <div class="portfolio-card-details">
+                        <span class="portfolio-tag">RESPONSIVE WEB UX</span>
+                        <h3 class="portfolio-card-title">Nomad Notes Website</h3>
+                        <p class="portfolio-card-desc">Creating a responsive travel experience focused on mobile-first exploration, destination discoverability, and visual simplicity.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-pdf="pdfs/case-study-5.pdf">
+                    <div class="card-image-wrapper">
+                        <img src="images/portfolio-5.webp" alt="MindMeld wellness app concept" class="portfolio-img">
+                        <div class="card-overlay">
+                            <span class="btn-view-pdf">Read Case Study <i class="bi bi-arrow-up-right-circle-fill ms-2"></i></span>
+                        </div>
+                    </div>
+                    <div class="portfolio-card-details">
+                        <span class="portfolio-tag">EMPATHY-LED UX</span>
+                        <h3 class="portfolio-card-title">MindMeld App Concept</h3>
+                        <p class="portfolio-card-desc">Crafting an emotional wellness experience with frictionless daily check-ins and empathy-driven information architecture.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="philosophy-section">
+        <div class="container">
+            <h2 class="section-title">Design Philosophy</h2>
+            <p class="section-subtitle">How I untangle complex workflows and balance high-density systems with human-centered mechanics.</p>
+            
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <div class="icon-box"><i class="bi bi-diagram-3"></i></div>
+                    <h3>Information Architecture First</h3>
+                    <p>Strong UX starts with clear structure. I focus on organising complex workflows and high-density information into intuitive, scalable user experiences.</p>
+                </div>
+                <div class="philosophy-card">
+                    <div class="icon-box"><i class="bi bi-sliders"></i></div>
+                    <h3>Clarity Within Complexity</h3>
+                    <p>Enterprise systems often require dense interfaces. My approach prioritises usability, scanability, and efficient task completion without oversimplifying workflows.</p>
+                </div>
+                <div class="philosophy-card">
+                    <div class="icon-box"><i class="bi bi-lightning-charge"></i></div>
+                    <h3>Cross-Platform Consistency</h3>
+                    <p>From enterprise dashboards to responsive websites and mobile apps, I design experiences that remain consistent, adaptable, and user-focused across platforms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="connect-section">
+        <div class="container text-center">
+            <h2 class="connect-title">Let’s Connect</h2>
+            <p class="connect-subtitle">Open to enterprise UX, product design, and cross-platform experience opportunities.</p>
+            <div class="connect-links">
+                <a href="#" data-pdf="pdfs/shantanu_acharya_cv.pdf" data-title="Curriculum Vitae" class="btn-connect cv-link">
+                    <i class="bi bi-file-earmark-pdf me-2"></i>View CV
+                </a>
+                <a href="https://www.linkedin.com/in/shantanu-acharya-ux/" target="_blank" class="btn-connect linkedin-link">
+                    <i class="bi bi-linkedin me-2"></i>LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="pdf-modal" class="modal-overlay">
+        <div class="modal-wrapper">
+            <div class="modal-header">
+                <h4 id="pdf-modal-title">Case Study Viewer</h4>
+                <button class="close-modal-btn" id="close-modal-btn" aria-label="Close Case Study">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- <object id="pdf-object" data="" type="application/pdf" width="100%" height="100%"> -->
+                <iframe id="pdf-viewer" src="" width="100%" height="100%" style="border: none;" allow="autoplay"></iframe>
+                    <!-- <p>Your browser doesn't support embedded PDFs. <a id="pdf-download-fallback" href="" target="_blank">Click here to download the PDF instead.</a></p> -->
+                    <p>Your browser doesn't support embedded viewports. <a id="pdf-download-fallback" href="" target="_blank">Click here to view the document directly.</a></p>
+                    </iframe>
+                <!-- </object> -->
+            </div>
         </div>
     </div>
 
-    <!-- ------------------------------ Contact Popup Card STARTS ------------------------------ -->
     <div id="contact-card">
         <div class="card-content">
             <p class="card-title">Get in touch</p>
@@ -59,28 +193,22 @@
                 </a>
             </div>
 
-            <!-- NEW Divider -->
-                    <div class="divider-line"></div>
+            <div class="divider-line"></div>
 
-            <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/in/shantanu-acharya-a9b25719" target="_blank" class="card-link linkedin">
+            <a href="https://www.linkedin.com/in/shantanu-acharya-ux/" target="_blank" class="card-link linkedin">
                 View LinkedIn Profile →
                 <i class="bi bi-linkedin linkedin-icon"></i>
             </a>
         </div>
     </div>
-    <!-- ------------------------------ Contact Popup Card ENDS ------------------------------ -->
 
-    <!-- Footer -->
     <footer>
         © <span id="year"></span>. Shantanu Acharya. All rights reserved.
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js?v=3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js?v=4"></script>
 
-    <!-- External JS -->
-    <script src="js/script.js?v=3"></script>
+    <script src="js/script.js?v=4"></script>
 
 </body>
 </html>
