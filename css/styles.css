@@ -5,25 +5,29 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    /* background: #e7e7e7; */
+    background: #0b1519;
     color: #ffffff;
+    scroll-behavior: smooth;
 }
 
-/* Mobile-safe full height */
+/* Base Body Framework */
 body {
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
 }
 
-.logo {
-    width: 120px;
-    height: auto;
-    margin-bottom: 24px;
-    opacity: 1;
+/* ------------------------------ SECTION 1: HERO BANNER (FULL VIEWPORT) ------------------------------ */
+.hero-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
 }
 
 .main-content {
@@ -35,53 +39,410 @@ body {
     padding: 20px;
 }
 
+.logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 24px;
+    opacity: 1;
+}
+
+.designer-name {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 36px;
+}
+
 h1 {
-    font-size: 3rem;
-    font-weight: 600;
+    font-size: 2.8rem;
+    font-weight: 500;
+    letter-spacing: -0.5px;
 }
 
 .subtext {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.7);
+    margin-top: 14px;
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
 }
 
-footer {
+/* Scroll Prompt Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    padding: 12px 10px;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
 }
 
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.2rem;
+.bouncing-arrow {
+    font-size: 1.2rem;
+    display: inline-block;
+    animation: bounce 2s infinite;
+    margin-top: 4px;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-6px); }
+    60% { transform: translateY(-3px); }
+}
+
+/* ------------------------------ SECTION 2: PORTFOLIO WORKS ------------------------------ */
+.portfolio-section {
+    padding: 100px 0;
+    background-color: #0b1519;
+}
+
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 60px auto;
+    font-weight: 300;
+}
+
+/* CSS Grid for Showcase Layout (Handles 5 items cleanly) */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 30px;
+    padding: 0 15px;
+}
+
+/* 5 Items Spacing Management: Makes the last item large or nicely integrated */
+@media (min-width: 992px) {
+    .portfolio-grid .portfolio-card:nth-child(4),
+    .portfolio-grid .portfolio-card:nth-child(5) {
+        grid-column: span 1;
     }
 }
 
-/* ------------------------------ Contact Popup Card STARTS ------------------------------ */
+.portfolio-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(139, 220, 255, 0.4);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background-color: rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.portfolio-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.portfolio-card:hover .portfolio-img {
+    transform: scale(1.04);
+}
+
+/* Overlay Activation On Hover */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 32, 39, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.portfolio-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.btn-view-pdf {
+    color: #ffffff;
+    background: #203a43;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.portfolio-card-details {
+    padding: 24px;
+}
+
+.portfolio-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #8bdcff;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.portfolio-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.portfolio-card-desc {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+/* ------------------------------ SECTION 3: WORK PHILOSOPHY ------------------------------ */
+.philosophy-section {
+    padding: 100px 0 140px 0;
+    background: linear-gradient(180deg, #0b1519 0%, #0d212a 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 15px;
+    margin-top: 20px;
+}
+
+.philosophy-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 35px 30px;
+    border-radius: 16px;
+    transition: background-color 0.3s;
+}
+
+.philosophy-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.icon-box {
+    font-size: 2rem;
+    color: #8bdcff;
+    margin-bottom: 20px;
+}
+
+.philosophy-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.philosophy-card p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* ------------------------------ SECTION 4: LET'S CONNECT ------------------------------ */
+.connect-section {
+    padding: 70px 0 90px 0;
+    /* background-color: #0d212a; */
+    background-color: #09161b;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.connect-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+}
+
+.connect-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 550px;
+    margin: 0 auto 32px auto;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+.connect-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.btn-connect {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 30px;
+    letter-spacing: 0.2px;
+    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cv-link {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cv-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.linkedin-link {
+    color: #8bdcff;
+    background: rgba(139, 220, 255, 0.05);
+    border: 1px solid rgba(139, 220, 255, 0.15);
+}
+
+.linkedin-link:hover {
+    background: rgba(139, 220, 255, 0.1);
+    border-color: #8bdcff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 220, 255, 0.1);
+}
+
+/* ------------------------------ NATIVE SCROLL MODAL FOR PDFS ------------------------------ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background-color: rgba(5, 12, 15, 0.95);
+    backdrop-filter: blur(12px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Expanded wrapper to capture 100% full screen view area */
+.modal-wrapper {
+    background-color: #0f2027;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(1.02);
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.modal-overlay.active .modal-wrapper {
+    transform: scale(1);
+}
+
+/* Sleek high-density header row to save maximal vertical viewport space */
+.modal-header {
+    padding: 12px 24px;
+    background-color: #0b1519;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0; /* Prevents header from compressed shifting */
+}
+
+#pdf-modal-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.2px;
+}
+
+.close-modal-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: all 0.15s ease;
+}
+
+.close-modal-btn:hover {
+    color: #ffffff;
+    background-color: #dc3545; /* Clean red exit indicator on hover */
+    border-color: transparent;
+}
+
+.modal-body {
+    flex: 1;
+    background-color: #1a1a1a;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------------------------ POPUP CONTACT CARD (RIGHT CLICK) ------------------------------ */
 #contact-card {
     position: fixed;
-    background: rgba(15, 32, 39, 0.9);
+    background: rgba(15, 32, 39, 0.95);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-
     border: 1px solid rgba(255, 255, 255, 0.12);
-
-    /* Subtle inner highlight */
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     color: #ffffff;
     border-radius: 14px;
     padding: 16px 18px;
     z-index: 9999;
-
     display: none;
     width: 255px;
-
-    /* Animation base */
     transform: scale(0.95);
     opacity: 0;
     transition: all 0.2s ease;
@@ -108,12 +469,6 @@ footer {
     transition: all 0.15s ease;
 }
 
-.card-link:hover {
-    text-decoration: underline;
-    opacity: 1;
-    transform: translateY(-1px);
-}
-
 #contact-card.show {
     transform: scale(1);
     opacity: 1;
@@ -123,7 +478,7 @@ footer {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-wrap: no-wrap;
+    flex-wrap: nowrap;
 }
 
 .divider {
@@ -154,16 +509,11 @@ footer {
     transition: all 0.15s ease;
 }
 
-.linkedin:hover {
-    color: #ffffff;
-}
-
-.linkedin:hover .linkedin-icon {
-    opacity: 1;
-    transform: translateX(1px);
-}
+.linkedin:hover { color: #ffffff; }
+.linkedin:hover .linkedin-icon { opacity: 1; transform: translateX(1px); }
 
 .card-link:hover {
+    text-decoration: underline;
     opacity: 1;
     transform: translateY(-1px);
     transition: all 0.15s ease;
@@ -172,12 +522,23 @@ footer {
 .divider-line {
     height: 1px;
     margin: 8px 0;
-
-    background: linear-gradient(
-        to right,
-        transparent,
-        rgba(255, 255, 255, 0.13),
-        transparent
-    );
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.13), transparent);
 }
-/* ------------------------------ Contact Popup Card ENDS ------------------------------ */
+
+/* ------------------------------ FOOTER ------------------------------ */
+footer {
+    text-align: center;
+    padding: 30px 10px;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.4);
+    background-color: #0d212a;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    .section-title { font-size: 1.85rem; }
+    .portfolio-section, .philosophy-section { padding: 60px 0; }
+    .modal-wrapper { width: 95%; height: 90vh; }
+}
