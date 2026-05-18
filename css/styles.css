@@ -68,6 +68,11 @@ h1 {
     font-weight: 300;
 }
 
+.mobile-heading,
+.mobile-subtext {
+    display: none;
+}
+
 /* Scroll Prompt Indicator */
 .scroll-indicator {
     position: absolute;
@@ -77,6 +82,7 @@ h1 {
     text-align: center;
     color: rgba(255, 255, 255, 0.4);
     font-size: 0.75rem;
+    cursor: pointer;
 }
 
 .bouncing-arrow {
@@ -115,20 +121,25 @@ h1 {
     font-weight: 300;
 }
 
-/* CSS Grid for Showcase Layout (Handles 5 items cleanly) */
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(6, 1fr);
     gap: 30px;
+    max-width: 1140px;
+    margin: 0 auto;
     padding: 0 15px;
 }
 
-/* 5 Items Spacing Management: Makes the last item large or nicely integrated */
-@media (min-width: 992px) {
-    .portfolio-grid .portfolio-card:nth-child(4),
-    .portfolio-grid .portfolio-card:nth-child(5) {
-        grid-column: span 1;
-    }
+.portfolio-card {
+    grid-column: span 2;
+}
+
+.portfolio-card:nth-child(4) {
+    grid-column: 2 / span 2;
+}
+
+.portfolio-card:nth-child(5) {
+    grid-column: 4 / span 2;
 }
 
 .portfolio-card {
@@ -525,6 +536,49 @@ h1 {
     background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.13), transparent);
 }
 
+/* ==============================
+   BACK TO TOP BUTTON
+============================== */
+
+.back-to-top {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(18, 28, 36, 0.85);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s ease,
+        background 0.3s ease;
+    z-index: 999;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.back-to-top:hover {
+    background: rgba(35, 50, 62, 0.95);
+    transform: translateY(0px);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
 /* ------------------------------ FOOTER ------------------------------ */
 footer {
     text-align: center;
@@ -537,8 +591,80 @@ footer {
 
 /* Responsive Breakpoints */
 @media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    .section-title { font-size: 1.85rem; }
-    .portfolio-section, .philosophy-section { padding: 60px 0; }
-    .modal-wrapper { width: 95%; height: 90vh; }
+
+    .desktop-heading,
+    .desktop-subtext {
+        display: none;
+    }
+
+    .mobile-heading,
+    .mobile-subtext {
+        display: block;
+    }
+
+    h1 {
+        font-size: 2.0rem;
+        line-height: 1.45;
+        letter-spacing: 0px;
+        max-width: 285px;
+        margin: 0 auto;
+    }
+
+    .subtext {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        max-width: 320px;
+        margin: 18px auto 0 auto;
+        padding: 0 10px;
+    }
+
+    .logo {
+        width: 105px;
+        margin-bottom: 20px;
+    }
+
+    .designer-name {
+        font-size: 0.95rem;
+        margin-bottom: 32px;
+        letter-spacing: 1.8px;
+    }
+
+    .scroll-indicator {
+        bottom: 26px;
+    }
+
+    .section-title {
+        font-size: 1.85rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+        max-width: 500px;
+        margin: 0 auto 50px auto;
+        padding: 0 16px;
+    }
+
+    .portfolio-section,
+    .philosophy-section {
+        padding: 60px 0;
+    }
+
+        /* ADD THIS PART */
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-card {
+        grid-column: span 1 !important;
+    }
+
+    .portfolio-card:nth-child(4),
+    .portfolio-card:nth-child(5) {
+        grid-column: span 1 !important;
+    }
+
+    .modal-wrapper {
+        width: 95%;
+        height: 90vh;
+    }
 }
