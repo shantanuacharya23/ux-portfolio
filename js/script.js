@@ -150,5 +150,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// ------------------------------ HERO SCROLL TRIGGER ------------------------------
+const scrollTrigger = document.getElementById("scroll-trigger");
+
+if (scrollTrigger) {
+    scrollTrigger.addEventListener("click", () => {
+        const portfolioSection = document.getElementById("portfolio");
+
+        if (portfolioSection) {
+            portfolioSection.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+    });
+}
+
+// ------------------------------ BACK TO TOP BUTTON ------------------------------
+const backToTopBtn = document.getElementById("backToTopBtn");
+const connectSection = document.getElementById("connect");
+
+window.addEventListener("scroll", () => {
+    const connectTop = connectSection.getBoundingClientRect().top;
+    const triggerPoint = window.innerHeight;
+
+    if (connectTop <= triggerPoint) {
+        backToTopBtn.classList.add("show");
+    } else {
+        backToTopBtn.classList.remove("show");
+    }
+});
+
+backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
 // Set current auto-updating dynamic year context in footer
 document.getElementById("year").textContent = new Date().getFullYear();
