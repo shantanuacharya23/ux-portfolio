@@ -176,3 +176,16 @@ backToTopBtn.addEventListener("click", () => {
 
 // Set current auto-updating dynamic year context in footer
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// ------------------------------ SECURITY: BLOCK PRINT KEYSTROKES ------------------------------
+// Neutering the global print function
+window.print = function() { return false; };
+
+window.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P' || e.keyCode === 80)) {
+        e.cancelBubble = true;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        console.log("Print function fully disabled.");
+    }
+}, true);
