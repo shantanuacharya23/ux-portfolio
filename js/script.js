@@ -59,37 +59,27 @@ document.addEventListener("DOMContentLoaded", () => {
             const relativePdfUrl = card.getAttribute("data-pdf");
             const caseStudyTitle = card.querySelector(".portfolio-card-title").textContent;
 
-            // PRODUCTION SERVER ARCHITECTURE (Active: Optimized for live public deployment)
+            // NEW: Self-Hosted Mozilla PDF.js Architecture with IDM Bypass
             if (relativePdfUrl) {
                 pdfModalTitle.textContent = `Case Study: ${caseStudyTitle}`;
 
-                // Construct an absolute URL (required by cloud rendering engines)
+                // 1. Define the actual PDF path for the fallback link
                 const absolutePdfUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativePdfUrl;
                 
-                // Securely wrap your absolute PDF path inside Google's optimized web viewer engine
-                const cloudViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absolutePdfUrl)}&embedded=true`;
+                // 2. Create the bypass path by swapping .pdf to .dat for the viewer
+                const bypassDatUrl = absolutePdfUrl.replace('.pdf', '.dat');
+                
+                // 3. Point the viewer to the .dat file so IDM ignores it, AND force it to page 1
+                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(bypassDatUrl)}#page=1`;
 
-                // Update attributes
-                pdfViewer.setAttribute("src", cloudViewerUrl);
+                // Update attributes (Viewer gets .dat, Fallback gets .pdf)
+                pdfViewer.setAttribute("src", localViewerUrl);
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
 
                 // Activate display states
                 pdfModal.classList.add("active");
-                document.body.style.overflow = "hidden"; // Prevent background body scroll disruption
-            }
-
-            /*
-            // TEMPORARY LOCAL PC TESTING CODE (Commented out for live launch)
-            if (relativePdfUrl) {
-                pdfModalTitle.textContent = `Case Study: ${caseStudyTitle}`;
-
-                pdfViewer.setAttribute("src", relativePdfUrl); 
-                pdfFallbackLink.setAttribute("href", relativePdfUrl);
-
-                pdfModal.classList.add("active");
                 document.body.style.overflow = "hidden";
             }
-            */
         });
     });
 
@@ -101,23 +91,25 @@ document.addEventListener("DOMContentLoaded", () => {
             
             const relativePdfUrl = cvLink.getAttribute("data-pdf");
             const cvTitle = cvLink.getAttribute("data-title");
-
+            
+            // NEW: Self-Hosted Mozilla PDF.js Architecture with IDM Bypass
             if (relativePdfUrl) {
-                pdfModalTitle.textContent = cvTitle;
+                pdfModalTitle.textContent = `Case Study: ${caseStudyTitle}`;
 
-                // PRODUCTION SERVER ARCHITECTURE (Active: Optimized for live public deployment)
+                // 1. Define the actual PDF path for the fallback link
                 const absolutePdfUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativePdfUrl;
-                const cloudViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absolutePdfUrl)}&embedded=true`;
                 
-                pdfViewer.setAttribute("src", cloudViewerUrl);
+                // 2. Create the bypass path by swapping .pdf to .dat for the viewer
+                const bypassDatUrl = absolutePdfUrl.replace('.pdf', '.dat');
+                
+                // 3. Point the viewer to the CV .dat file and force it to page 1
+                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(bypassDatUrl)}#page=1`;
+
+                // Update attributes (Viewer gets .dat, Fallback gets .pdf)
+                pdfViewer.setAttribute("src", localViewerUrl);
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
 
-                /*
-                // TEMPORARY LOCAL PC TESTING CODE (Commented out for live launch)
-                pdfViewer.setAttribute("src", relativePdfUrl); 
-                pdfFallbackLink.setAttribute("href", relativePdfUrl);
-                */
-
+                // Activate display states
                 pdfModal.classList.add("active");
                 document.body.style.overflow = "hidden";
             }
