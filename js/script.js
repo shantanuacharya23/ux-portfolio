@@ -66,8 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 1. Define the actual PDF path
                 const absolutePdfUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativePdfUrl;
                 
-                // 2. Point the viewer directly to the .pdf file and force it to page 1
-                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(absolutePdfUrl)}#page=1`;
+                // Point the viewer directly to the .pdf file, force it to page 1, and force it to fill the width
+                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(absolutePdfUrl)}#page=1&zoom=page-width`;
 
                 // Update attributes
                 pdfViewer.setAttribute("src", localViewerUrl);
@@ -97,8 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 1. Define the actual PDF path
                 const absolutePdfUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativePdfUrl;
                 
-                // 2. Point the viewer directly to the .pdf file and force it to page 1
-                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(absolutePdfUrl)}#page=1`;
+                // Point the viewer directly to the .pdf file, force it to page 1, and force it to fill the width
+                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(absolutePdfUrl)}#page=1&zoom=page-width`;
 
                 // Update attributes
                 pdfViewer.setAttribute("src", localViewerUrl);
