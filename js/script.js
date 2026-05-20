@@ -59,20 +59,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const relativePdfUrl = card.getAttribute("data-pdf");
             const caseStudyTitle = card.querySelector(".portfolio-card-title").textContent;
 
-            // NEW: Self-Hosted Mozilla PDF.js Architecture with IDM Bypass
+            // NEW: Self-Hosted Mozilla PDF.js Architecture
             if (relativePdfUrl) {
                 pdfModalTitle.textContent = `Case Study: ${caseStudyTitle}`;
 
-                // 1. Define the actual PDF path for the fallback link
+                // 1. Define the actual PDF path
                 const absolutePdfUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativePdfUrl;
                 
-                // 2. Create the bypass path by swapping .pdf to .dat for the viewer
-                const bypassDatUrl = absolutePdfUrl.replace('.pdf', '.dat');
-                
-                // 3. Point the viewer to the .dat file so IDM ignores it, AND force it to page 1
-                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(bypassDatUrl)}#page=1`;
+                // 2. Point the viewer directly to the .pdf file and force it to page 1
+                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(absolutePdfUrl)}#page=1`;
 
-                // Update attributes (Viewer gets .dat, Fallback gets .pdf)
+                // Update attributes
                 pdfViewer.setAttribute("src", localViewerUrl);
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
 
@@ -92,20 +89,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const relativePdfUrl = cvLink.getAttribute("data-pdf");
             const cvTitle = cvLink.getAttribute("data-title");
             
-            // NEW: Self-Hosted Mozilla PDF.js Architecture with IDM Bypass
+            // NEW: Self-Hosted Mozilla PDF.js Architecture
             if (relativePdfUrl) {
                 pdfModalTitle.textContent = `Case Study: ${caseStudyTitle}`;
 
-                // 1. Define the actual PDF path for the fallback link
+                // 1. Define the actual PDF path
                 const absolutePdfUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativePdfUrl;
                 
-                // 2. Create the bypass path by swapping .pdf to .dat for the viewer
-                const bypassDatUrl = absolutePdfUrl.replace('.pdf', '.dat');
-                
-                // 3. Point the viewer to the CV .dat file and force it to page 1
-                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(bypassDatUrl)}#page=1`;
+                // 2. Point the viewer directly to the .pdf file and force it to page 1
+                const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(absolutePdfUrl)}#page=1`;
 
-                // Update attributes (Viewer gets .dat, Fallback gets .pdf)
+                // Update attributes
                 pdfViewer.setAttribute("src", localViewerUrl);
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
 
