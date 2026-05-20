@@ -91,7 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // NEW: Self-Hosted Mozilla PDF.js Architecture
             if (relativePdfUrl) {
-                pdfModalTitle.textContent = `Case Study: ${caseStudyTitle}`;
+                // Fix: Use cvTitle instead of the undefined caseStudyTitle
+                pdfModalTitle.textContent = cvTitle;
 
                 // 1. Define the actual PDF path
                 const absolutePdfUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativePdfUrl;
