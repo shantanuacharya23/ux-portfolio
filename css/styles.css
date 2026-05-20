@@ -668,3 +668,10 @@ footer {
         height: 90vh;
     }
 }
+
+/* Block printing and Save as PDF */
+@media print {
+    body {
+        display: none !important;
+    }
+}
