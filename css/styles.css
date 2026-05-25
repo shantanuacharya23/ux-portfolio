@@ -366,6 +366,7 @@ h1 {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
+    touch-action: none; /* NEW: Kills native browser pinch/scroll on the overlay */
 }
 
 .modal-overlay.active {
