@@ -23,44 +23,48 @@ See https://github.com/adobe-type-tools/cmap-resources
 <html dir="ltr" mozdisallowselectionprint>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
     <meta name="google" content="notranslate" />
     <title>PDF.js viewer</title>
 
-<!-- This snippet is used in production (included from viewer.html) -->
-<script src="../build/pdf.mjs" type="module"></script>
+    <!-- This snippet is used in production (included from viewer.html) -->
+    <script src="../build/pdf.mjs" type="module"></script>
 
-    <link rel="stylesheet" href="viewer.css" />
+        <link rel="stylesheet" href="viewer.css" />
 
-  <script src="viewer.mjs" type="module"></script>
+      <script src="viewer.mjs" type="module"></script>
 
-  <style>
-      /* 1. Hide the entire top toolbar and its shadow */
-      #toolbarContainer, 
-      #outerContainer .toolbar {
-          display: none !important;
-      }
+    <style>
+        /* 1. Hide the entire top toolbar and its shadow */
+        #toolbarContainer, 
+        #outerContainer .toolbar {
+            display: none !important;
+        }
 
-      /* 2. Force the document container to start at the very top */
-      #viewerContainer {
-          top: 0 !important;
-          background-color: #1a1a1a !important; /* Matches your modal-body */
-      }
+        /* 2. Force the document container to start at the very top */
+        #viewerContainer {
+            top: 0 !important;
+            background-color: #1a1a1a !important; /* Matches your modal-body */
+        }
 
-      /* 3. Hide the sidebar toggle switch on the left */
-      #sidebarToggle {
-          display: none !important;
-      }
+        /* 3. Hide the sidebar toggle switch on the left */
+        #sidebarToggle {
+            display: none !important;
+        }
 
-      /* 4. NEW: Block printing via Browser Menu */
-      @media print {
-          body {
-              display: none !important;
-          }
-      }
-  </style>
-</head>
+        /* 4. NEW: Block printing via Browser Menu */
+        @media print {
+            body {
+                display: none !important;
+            }
+        }
 
+        /* 5. NEW: Stop native browser dual-zooming on mobile */
+        html, body {
+            touch-action: pan-x pan-y !important;
+        }
+    </style>
   </head>
 
   <body tabindex="0">
@@ -1257,6 +1261,13 @@ See https://github.com/adobe-type-tools/cmap-resources
               e.stopImmediatePropagation();
           }
       }, true);
+
+      // 5. iOS Safari Dual-Zoom Kill Switch
+      document.addEventListener('touchmove', function(e) {
+          if (e.touches.length > 1) {
+              e.preventDefault();
+          }
+      }, { passive: false });
     </script>
   </body>
 </html>
