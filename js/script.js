@@ -52,7 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const pdfModalTitle = document.getElementById("pdf-modal-title");
     const pdfFallbackLink = document.getElementById("pdf-download-fallback");
 
-    portfolioCards.forEach(card => {
+    // Change 1: Add 'index' to the loop function so JavaScript knows which card was clicked
+    portfolioCards.forEach((card, index) => {
         card.addEventListener("click", (e) => {
             if (e.target.tagName === 'A') return;
 
@@ -72,6 +73,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Update attributes
                 pdfViewer.setAttribute("src", localViewerUrl);
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
+
+                // Change 2: Dynamic width logic based on the card's numerical position
+                if (index === 4) {
+                    // The 5th card (MindMeld Concept - Index 4)
+                    pdfViewer.style.width = "85%";
+                } else {
+                    // All other cards (Indexes 0, 1, 2, 3)
+                    pdfViewer.style.width = "95%";
+                }
+                
+                pdfViewer.style.margin = "0 auto";
+                pdfViewer.style.display = "block";
 
                 // Activate display states
                 pdfModal.classList.add("active");
@@ -97,12 +110,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 1. Define the actual PDF path
                 const absolutePdfUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + relativePdfUrl;
                 
-                // Point the viewer directly to the .pdf file, force it to page 1, and force it to fill the width
+                // Point the viewer directly to the .pdf file, force it to page 1
                 const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(absolutePdfUrl)}#page=1`;
 
                 // Update attributes
                 pdfViewer.setAttribute("src", localViewerUrl);
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
+
+                // NEW: Restore the iframe to 100% width for the CV
+                pdfViewer.style.width = "100%";
+                pdfViewer.style.margin = "0";
 
                 // Activate display states
                 pdfModal.classList.add("active");
