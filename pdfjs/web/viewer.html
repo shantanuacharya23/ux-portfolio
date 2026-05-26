@@ -1267,7 +1267,7 @@ See https://github.com/adobe-type-tools/cmap-resources
           printContainer.remove();
       }
 
-      // 4. Maximum Priority Keystroke Interceptor (Includes KeyCode 80)
+      // 4. Maximum Priority Keystroke Interceptor
       window.addEventListener('keydown', function(e) {
           if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P' || e.keyCode === 80)) {
               e.cancelBubble = true;
@@ -1276,51 +1276,99 @@ See https://github.com/adobe-type-tools/cmap-resources
           }
       }, true);
 
-      // 5. THE FIX: iOS Pinch-to-Wheel Polyfill
+      // 5. THE FIX: Hardware-Accelerated iOS Pinch-to-Zoom Override
       const container = document.getElementById('viewerContainer');
-      let initialDistance = 0;
+      const viewer = document.getElementById('viewer');
 
+      let isPinching = false;
+      let initialDistance = 0;
+      let pinchScale = 1;
+      let startFocalX = 0;
+      let startFocalY = 0;
+      let startScrollLeft = 0;
+      let startScrollTop = 0;
+
+      // PHASE 1: Intercept the touch BEFORE PDF.js sees it
       container.addEventListener('touchstart', function(e) {
           if (e.touches.length === 2) {
+              isPinching = true;
+              e.stopPropagation(); // Absolute firewall: Hides event from PDF.js
+              
               const t1 = e.touches;
               const t2 = e.touches;
-              // Calculate initial distance between two fingers
+              
               initialDistance = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+              pinchScale = 1;
+              
+              // Calculate exact center of the pinch in viewport coordinates
+              startFocalX = (t1.clientX + t2.clientX) / 2;
+              startFocalY = (t1.clientY + t2.clientY) / 2;
+              
+              startScrollLeft = container.scrollLeft;
+              startScrollTop = container.scrollTop;
+              
+              // Map focal point to absolute document coordinates
+              const docOriginX = startFocalX + startScrollLeft;
+              const docOriginY = startFocalY + startScrollTop;
+              
+              viewer.style.transformOrigin = `${docOriginX}px ${docOriginY}px`;
+              viewer.style.transition = 'none'; 
           }
-      }, { passive: false });
+      }, { capture: true, passive: false });
 
+      // PHASE 2: Apply 60fps visual scaling anchored exactly to the fingers
       container.addEventListener('touchmove', function(e) {
-          if (e.touches.length === 2) {
-              e.preventDefault(); // Immediately kill Safari's native sliding behavior
+          if (isPinching && e.touches.length === 2) {
+              e.preventDefault(); // Stop iOS scroll bounce
+              e.stopPropagation(); // Hide from PDF.js
               
               const t1 = e.touches;
               const t2 = e.touches;
               const currentDistance = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
               
-              // Calculate the exact center point between the fingers
-              const centerX = (t1.clientX + t2.clientX) / 2;
-              const centerY = (t1.clientY + t2.clientY) / 2;
+              pinchScale = currentDistance / initialDistance;
+              viewer.style.transform = `scale(${pinchScale})`;
+          }
+      }, { capture: true, passive: false });
+
+      // PHASE 3: When fingers release, lock the scroll math into the engine
+      const endPinch = function(e) {
+          if (isPinching && e.touches.length < 2) {
+              isPinching = false;
+              e.stopPropagation();
               
-              // Calculate zoom delta (negative zooms in, positive zooms out)
-              const delta = initialDistance - currentDistance;
-              
-              // Only fire if movement is significant to avoid micro-jitter
-              if (Math.abs(delta) > 2) {
-                  // Dispatch a synthetic Wheel event to trigger PDF.js focal-point logic
-                  const wheelEvent = new WheelEvent('wheel', {
-                      clientX: centerX,
-                      clientY: centerY,
-                      deltaY: delta * 2, // Multiplier for comfortable zoom speed
-                      ctrlKey: true,     // Forces PDF.js to zoom instead of scroll
-                      bubbles: true,
-                      cancelable: true
-                  });
+              if (pinchScale !== 1 && window.PDFViewerApplication) {
+                  const oldScale = window.PDFViewerApplication.pdfViewer.currentScale;
+                  const targetScale = oldScale * pinchScale;
                   
-                  e.target.dispatchEvent(wheelEvent);
-                  initialDistance = currentDistance; // Reset for continuous smooth zooming
+                  // Wipe visual CSS hack immediately
+                  viewer.style.transform = 'none';
+                  viewer.style.transformOrigin = 'unset';
+                  
+                  // Force PDF.js to re-render the high-res text
+                  window.PDFViewerApplication.pdfViewer.currentScale = targetScale;
+                  
+                  const actualScale = window.PDFViewerApplication.pdfViewer.currentScale;
+                  const ratio = actualScale / oldScale;
+                  
+                  // The exact mathematical offset to keep the page from sliding
+                  const newScrollLeft = (startFocalX + startScrollLeft) * ratio - startFocalX;
+                  const newScrollTop = (startFocalY + startScrollTop) * ratio - startFocalY;
+                  
+                  container.scrollLeft = newScrollLeft;
+                  container.scrollTop = newScrollTop;
+                  
+                  // Failsafe: Re-apply exact scroll position on the next frame to prevent PDF.js from shifting it
+                  requestAnimationFrame(() => {
+                      container.scrollLeft = newScrollLeft;
+                      container.scrollTop = newScrollTop;
+                  });
               }
           }
-      }, { passive: false });
+      };
+
+      container.addEventListener('touchend', endPinch, { capture: true, passive: false });
+      container.addEventListener('touchcancel', endPinch, { capture: true, passive: false });
     </script>
   </body>
 </html>
