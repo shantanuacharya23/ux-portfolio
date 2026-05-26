@@ -66,19 +66,22 @@ See https://github.com/adobe-type-tools/cmap-resources
             touch-action: pan-x pan-y !important;
         } */
 
-        /* 6. NEW: Fix iOS Safari Pinch-Zoom "Slipping" */
-        #viewerContainer {
-            overscroll-behavior: none !important; /* Stops Safari's rubber-banding bounce */
-            -webkit-overflow-scrolling: auto !important; /* Kills momentum layout shifts during zoom */
-        }
-        
-        .pdfViewer {
-            scroll-snap-type: none !important; /* Kills the container's magnetic snap */
-        }
-        
-        .pdfViewer .page {
-            scroll-snap-align: none !important; /* Stops individual pages from violently jumping into frame */
-        }
+        /* 6. Fix iOS Native Zoom Jerking & Restore Smooth Scrolling */
+      #viewerContainer {
+          -webkit-overflow-scrolling: touch !important; /* Restores Apple's buttery smooth momentum scrolling */
+          overscroll-behavior: none !important; /* Stops the rubber-band bounce effect */
+      }
+      
+      .pdfViewer {
+          scroll-snap-type: none !important; 
+      }
+      
+      .pdfViewer .page {
+          scroll-snap-align: none !important; 
+          transform: translate3d(0, 0, 0) !important; /* Forces iPhone GPU Hardware Acceleration */
+          will-change: transform; /* Tells iOS to prepare for zooming */
+          backface-visibility: hidden; /* Stops Safari rendering flickers and jerks */
+      }
     </style>
   </head>
 
