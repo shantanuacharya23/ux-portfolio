@@ -1255,24 +1255,46 @@ See https://github.com/adobe-type-tools/cmap-resources
     <style>
       #custom-zoom-controls {
           position: fixed;
-          bottom: 24px;
+          bottom: 30px;
           left: 50%;
           transform: translateX(-50%);
           display: flex;
           gap: 4px;
-          background: rgba(20, 20, 20, 0.85);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          
+          /* CHANGED: Highly translucent frosted glass base state */
+          background: rgba(20, 20, 20, 0.25);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          border: 1px solid rgba(255, 255, 255, 0.05);
           border-radius: 50px;
           padding: 6px;
           z-index: 99999;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+          
+          /* NEW: Overall fade to 40% visibility when idle */
+          opacity: 0.4;
+          transition: all 0.3s ease;
       }
+      
+      @media (max-width: 768px) {
+          #custom-zoom-controls {
+              bottom: 95px; 
+          }
+      }
+
+      /* NEW: "Wake up" to full visibility when interacted with */
+      #custom-zoom-controls:hover,
+      #custom-zoom-controls:active,
+      #custom-zoom-controls:focus-within {
+          opacity: 1;
+          background: rgba(20, 20, 20, 0.85);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
       #custom-zoom-controls button {
           background: transparent;
           border: none;
-          color: white;
+          color: rgba(255, 255, 255, 0.6); /* Dimmed icons */
           font-size: 26px;
           width: 44px;
           height: 44px;
@@ -1281,9 +1303,14 @@ See https://github.com/adobe-type-tools/cmap-resources
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          touch-action: manipulation; /* Prevents iOS double-tap delay */
+          touch-action: manipulation;
+          transition: all 0.2s ease;
       }
+      
+      /* Brighten the specific button being tapped */
+      #custom-zoom-controls button:hover,
       #custom-zoom-controls button:active {
+          color: #ffffff; 
           background: rgba(255, 255, 255, 0.15);
       }
     </style>
