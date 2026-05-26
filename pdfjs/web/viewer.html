@@ -23,6 +23,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 <html dir="ltr" mozdisallowselectionprint>
   <head>
     <meta charset="utf-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
     <meta name="google" content="notranslate" />
     <title>PDF.js viewer</title>
@@ -60,26 +61,9 @@ See https://github.com/adobe-type-tools/cmap-resources
         }
 
         /* 5. NEW: Stop native browser dual-zooming on mobile */
-        /* html, body {
+        html, body {
             touch-action: pan-x pan-y !important;
-        } */
-
-        /* 6. Fix iOS Native Zoom Jerking & Restore Smooth Scrolling */
-      #viewerContainer {
-          -webkit-overflow-scrolling: touch !important; /* Restores Apple's buttery smooth momentum scrolling */
-          overscroll-behavior: none !important; /* Stops the rubber-band bounce effect */
-      }
-      
-      .pdfViewer {
-          scroll-snap-type: none !important; 
-      }
-      
-      .pdfViewer .page {
-          scroll-snap-align: none !important; 
-          transform: translate3d(0, 0, 0) !important; /* Forces iPhone GPU Hardware Acceleration */
-          will-change: transform; /* Tells iOS to prepare for zooming */
-          backface-visibility: hidden; /* Stops Safari rendering flickers and jerks */
-      }
+        }
     </style>
   </head>
 
@@ -1251,87 +1235,25 @@ See https://github.com/adobe-type-tools/cmap-resources
     </div>
     <!-- outerContainer -->
     <div id="printContainer"></div>
-
-    <style>
-      #custom-zoom-controls {
-          position: fixed;
-          bottom: 30px;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          gap: 4px;
-          
-          /* CHANGED: Highly translucent frosted glass base state */
-          background: rgba(20, 20, 20, 0.25);
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 50px;
-          padding: 6px;
-          z-index: 99999;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-          
-          /* NEW: Overall fade to 40% visibility when idle */
-          opacity: 0.4;
-          transition: all 0.3s ease;
-      }
-      
-      @media (max-width: 768px) {
-          #custom-zoom-controls {
-              bottom: 70px; 
-          }
-      }
-
-      /* NEW: "Wake up" to full visibility when interacted with */
-      #custom-zoom-controls:hover,
-      #custom-zoom-controls:active,
-      #custom-zoom-controls:focus-within {
-          opacity: 1;
-          background: rgba(11, 21, 25, 0.65);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-      }
-
-      #custom-zoom-controls button {
-          background: transparent;
-          border: none;
-          color: rgba(255, 255, 255, 0.3); /* Dimmed icons */
-          font-size: 26px;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          touch-action: manipulation;
-          transition: all 0.2s ease;
-      }
-      
-      /* Brighten the specific button being tapped */
-      #custom-zoom-controls button:hover,
-      #custom-zoom-controls button:active {
-          color: #ffffff; 
-          background: rgba(11, 21, 25, 0.65);
-      }
-    </style>
-
-    <div id="custom-zoom-controls">
-        <button id="zoom-out-btn" aria-label="Zoom Out">−</button>
-        <button id="zoom-in-btn" aria-label="Zoom In">+</button>
-    </div>
-
     <script>
       // 1. Block Right-Click Menu
-      document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+      document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+      });
 
-      // 2. Erase the native print command entirely
-      window.print = function() { return false; };
+      // 2. The Nuclear Option: Erase the native print command entirely
+      window.print = function() { 
+          console.log("Print strictly disabled.");
+          return false; 
+      };
 
       // 3. Destroy the HTML container PDF.js uses to build the print file
       const printContainer = document.getElementById('printContainer');
-      if (printContainer) printContainer.remove();
+      if (printContainer) {
+          printContainer.remove();
+      }
 
-      // 4. Maximum Priority Keystroke Interceptor
+      // 4. Maximum Priority Keystroke Interceptor (Includes KeyCode 80)
       window.addEventListener('keydown', function(e) {
           if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P' || e.keyCode === 80)) {
               e.cancelBubble = true;
@@ -1340,18 +1262,12 @@ See https://github.com/adobe-type-tools/cmap-resources
           }
       }, true);
 
-      // 5. Flawless Internal Zoom Controls (Bypasses iOS Safari Bugs)
-      document.getElementById('zoom-in-btn').addEventListener('click', function() {
-          if (window.PDFViewerApplication && window.PDFViewerApplication.pdfViewer) {
-              window.PDFViewerApplication.pdfViewer.currentScale *= 1.25; // Zoom in by 25%
+      // 5. iOS Safari Dual-Zoom Kill Switch
+      document.addEventListener('touchmove', function(e) {
+          if (e.touches.length > 1) {
+              e.preventDefault();
           }
-      });
-
-      document.getElementById('zoom-out-btn').addEventListener('click', function() {
-          if (window.PDFViewerApplication && window.PDFViewerApplication.pdfViewer) {
-              window.PDFViewerApplication.pdfViewer.currentScale /= 1.25; // Zoom out by 25%
-          }
-      });
+      }, { passive: false });
     </script>
   </body>
 </html>
