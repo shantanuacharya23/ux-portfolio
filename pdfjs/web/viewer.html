@@ -1276,78 +1276,51 @@ See https://github.com/adobe-type-tools/cmap-resources
           }
       }, true);
 
-      // 5. Hardware-Accelerated iOS Pinch-Zoom Engine (Replaces the Dual-Zoom Kill Switch)
-      const viewer = document.getElementById("viewer");
-      const container = document.getElementById("viewerContainer");
+      // 5. THE FIX: iOS Pinch-to-Wheel Polyfill
+      const container = document.getElementById('viewerContainer');
+      let initialDistance = 0;
 
-      let startX = 0, startY = 0;
-      let initialPinchDistance = 0;
-      let pinchScale = 1;
-
-      // Track the start of the pinch and calculate the exact center between the two fingers
-      container.addEventListener("touchstart", (e) => {
+      container.addEventListener('touchstart', function(e) {
           if (e.touches.length === 2) {
-              startX = (e.touches.clientX + e.touches.clientX) / 2;
-              startY = (e.touches.clientY + e.touches.clientY) / 2;
-              initialPinchDistance = Math.hypot(
-                  e.touches.clientX - e.touches.clientX,
-                  e.touches.clientY - e.touches.clientY
-              );
-          } else {
-              initialPinchDistance = 0;
+              const t1 = e.touches;
+              const t2 = e.touches;
+              // Calculate initial distance between two fingers
+              initialDistance = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
           }
       }, { passive: false });
 
-      // Visually scale the PDF from the exact finger coordinates during the pinch
-      container.addEventListener("touchmove", (e) => {
-          if (e.touches.length > 1) {
-              e.preventDefault(); // Kills the native iOS Safari dual-zoom conflict
+      container.addEventListener('touchmove', function(e) {
+          if (e.touches.length === 2) {
+              e.preventDefault(); // Immediately kill Safari's native sliding behavior
+              
+              const t1 = e.touches;
+              const t2 = e.touches;
+              const currentDistance = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+              
+              // Calculate the exact center point between the fingers
+              const centerX = (t1.clientX + t2.clientX) / 2;
+              const centerY = (t1.clientY + t2.clientY) / 2;
+              
+              // Calculate zoom delta (negative zooms in, positive zooms out)
+              const delta = initialDistance - currentDistance;
+              
+              // Only fire if movement is significant to avoid micro-jitter
+              if (Math.abs(delta) > 2) {
+                  // Dispatch a synthetic Wheel event to trigger PDF.js focal-point logic
+                  const wheelEvent = new WheelEvent('wheel', {
+                      clientX: centerX,
+                      clientY: centerY,
+                      deltaY: delta * 2, // Multiplier for comfortable zoom speed
+                      ctrlKey: true,     // Forces PDF.js to zoom instead of scroll
+                      bubbles: true,
+                      cancelable: true
+                  });
+                  
+                  e.target.dispatchEvent(wheelEvent);
+                  initialDistance = currentDistance; // Reset for continuous smooth zooming
+              }
           }
-          
-          if (initialPinchDistance <= 0 || e.touches.length !== 2) return;
-          
-          const pinchDistance = Math.hypot(
-              e.touches.clientX - e.touches.clientX,
-              e.touches.clientY - e.touches.clientY
-          );
-          
-          pinchScale = pinchDistance / initialPinchDistance;
-          
-          // Calculate the absolute position in the document
-          const originX = startX + container.scrollLeft;
-          const originY = startY + container.scrollTop;
-          
-          // Apply a buttery-smooth 60fps CSS scale anchored exactly at the fingers
-          viewer.style.transform = `scale(${pinchScale})`;
-          viewer.style.transformOrigin = `${originX}px ${originY}px`;
       }, { passive: false });
-
-      // When fingers release, lock in the new high-res scale and adjust scroll bars
-      container.addEventListener("touchend", (e) => {
-          if (initialPinchDistance <= 0) return;
-          
-          // Reset CSS transforms
-          viewer.style.transform = `none`;
-          viewer.style.transformOrigin = `unset`;
-          
-          // Pass the new scale to PDF.js for high-resolution rendering
-          const oldScale = PDFViewerApplication.pdfViewer.currentScale;
-          PDFViewerApplication.pdfViewer.currentScale *= pinchScale;
-          const newScale = PDFViewerApplication.pdfViewer.currentScale;
-          
-          // Calculate the *actual* ratio applied, in case PDF.js hit its max/min zoom limits
-          const actualPinchRatio = newScale / oldScale;
-          
-          // Mathematically adjust the scroll position to keep the focal point locked under the fingers
-          const rect = container.getBoundingClientRect();
-          const dx = startX - rect.left;
-          const dy = startY - rect.top;
-          
-          container.scrollLeft += dx * (actualPinchRatio - 1);
-          container.scrollTop += dy * (actualPinchRatio - 1);
-          
-          initialPinchDistance = 0;
-      });
     </script>
   </body>
 </html>
