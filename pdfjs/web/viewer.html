@@ -23,9 +23,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 <html dir="ltr" mozdisallowselectionprint>
   <head>
     <meta charset="utf-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> -->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
     <meta name="google" content="notranslate" />
     <title>PDF.js viewer</title>
 
@@ -1253,22 +1251,58 @@ See https://github.com/adobe-type-tools/cmap-resources
     </div>
     <!-- outerContainer -->
     <div id="printContainer"></div>
+
+    <style>
+      #custom-zoom-controls {
+          position: fixed;
+          bottom: 24px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 4px;
+          background: rgba(20, 20, 20, 0.85);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 50px;
+          padding: 6px;
+          z-index: 99999;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      }
+      #custom-zoom-controls button {
+          background: transparent;
+          border: none;
+          color: white;
+          font-size: 26px;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          touch-action: manipulation; /* Prevents iOS double-tap delay */
+      }
+      #custom-zoom-controls button:active {
+          background: rgba(255, 255, 255, 0.15);
+      }
+    </style>
+
+    <div id="custom-zoom-controls">
+        <button id="zoom-out-btn" aria-label="Zoom Out">−</button>
+        <button id="zoom-in-btn" aria-label="Zoom In">+</button>
+    </div>
+
     <script>
       // 1. Block Right-Click Menu
-      document.addEventListener('contextmenu', function(e) {
-          e.preventDefault();
-      });
+      document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
 
       // 2. Erase the native print command entirely
-      window.print = function() { 
-          return false; 
-      };
+      window.print = function() { return false; };
 
       // 3. Destroy the HTML container PDF.js uses to build the print file
       const printContainer = document.getElementById('printContainer');
-      if (printContainer) {
-          printContainer.remove();
-      }
+      if (printContainer) printContainer.remove();
 
       // 4. Maximum Priority Keystroke Interceptor
       window.addEventListener('keydown', function(e) {
@@ -1278,6 +1312,19 @@ See https://github.com/adobe-type-tools/cmap-resources
               e.stopImmediatePropagation();
           }
       }, true);
+
+      // 5. Flawless Internal Zoom Controls (Bypasses iOS Safari Bugs)
+      document.getElementById('zoom-in-btn').addEventListener('click', function() {
+          if (window.PDFViewerApplication && window.PDFViewerApplication.pdfViewer) {
+              window.PDFViewerApplication.pdfViewer.currentScale *= 1.25; // Zoom in by 25%
+          }
+      });
+
+      document.getElementById('zoom-out-btn').addEventListener('click', function() {
+          if (window.PDFViewerApplication && window.PDFViewerApplication.pdfViewer) {
+              window.PDFViewerApplication.pdfViewer.currentScale /= 1.25; // Zoom out by 25%
+          }
+      });
     </script>
   </body>
 </html>
