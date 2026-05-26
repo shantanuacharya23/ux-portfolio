@@ -24,7 +24,8 @@ See https://github.com/adobe-type-tools/cmap-resources
   <head>
     <meta charset="utf-8" />
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google" content="notranslate" />
     <title>PDF.js viewer</title>
 
@@ -61,9 +62,9 @@ See https://github.com/adobe-type-tools/cmap-resources
         }
 
         /* 5. NEW: Stop native browser dual-zooming on mobile */
-        html, body {
+        /* html, body {
             touch-action: pan-x pan-y !important;
-        }
+        } */
 
         /* 6. NEW: Fix iOS Safari Pinch-Zoom "Slipping" */
         #viewerContainer {
@@ -1255,9 +1256,8 @@ See https://github.com/adobe-type-tools/cmap-resources
           e.preventDefault();
       });
 
-      // 2. The Nuclear Option: Erase the native print command entirely
+      // 2. Erase the native print command entirely
       window.print = function() { 
-          console.log("Print strictly disabled.");
           return false; 
       };
 
@@ -1275,100 +1275,6 @@ See https://github.com/adobe-type-tools/cmap-resources
               e.stopImmediatePropagation();
           }
       }, true);
-
-      // 5. THE FIX: Hardware-Accelerated iOS Pinch-to-Zoom Override
-      const container = document.getElementById('viewerContainer');
-      const viewer = document.getElementById('viewer');
-
-      let isPinching = false;
-      let initialDistance = 0;
-      let pinchScale = 1;
-      let startFocalX = 0;
-      let startFocalY = 0;
-      let startScrollLeft = 0;
-      let startScrollTop = 0;
-
-      // PHASE 1: Intercept the touch BEFORE PDF.js sees it
-      container.addEventListener('touchstart', function(e) {
-          if (e.touches.length === 2) {
-              isPinching = true;
-              e.stopPropagation(); // Absolute firewall: Hides event from PDF.js
-              
-              const t1 = e.touches;
-              const t2 = e.touches;
-              
-              initialDistance = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
-              pinchScale = 1;
-              
-              // Calculate exact center of the pinch in viewport coordinates
-              startFocalX = (t1.clientX + t2.clientX) / 2;
-              startFocalY = (t1.clientY + t2.clientY) / 2;
-              
-              startScrollLeft = container.scrollLeft;
-              startScrollTop = container.scrollTop;
-              
-              // Map focal point to absolute document coordinates
-              const docOriginX = startFocalX + startScrollLeft;
-              const docOriginY = startFocalY + startScrollTop;
-              
-              viewer.style.transformOrigin = `${docOriginX}px ${docOriginY}px`;
-              viewer.style.transition = 'none'; 
-          }
-      }, { capture: true, passive: false });
-
-      // PHASE 2: Apply 60fps visual scaling anchored exactly to the fingers
-      container.addEventListener('touchmove', function(e) {
-          if (isPinching && e.touches.length === 2) {
-              e.preventDefault(); // Stop iOS scroll bounce
-              e.stopPropagation(); // Hide from PDF.js
-              
-              const t1 = e.touches;
-              const t2 = e.touches;
-              const currentDistance = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
-              
-              pinchScale = currentDistance / initialDistance;
-              viewer.style.transform = `scale(${pinchScale})`;
-          }
-      }, { capture: true, passive: false });
-
-      // PHASE 3: When fingers release, lock the scroll math into the engine
-      const endPinch = function(e) {
-          if (isPinching && e.touches.length < 2) {
-              isPinching = false;
-              e.stopPropagation();
-              
-              if (pinchScale !== 1 && window.PDFViewerApplication) {
-                  const oldScale = window.PDFViewerApplication.pdfViewer.currentScale;
-                  const targetScale = oldScale * pinchScale;
-                  
-                  // Wipe visual CSS hack immediately
-                  viewer.style.transform = 'none';
-                  viewer.style.transformOrigin = 'unset';
-                  
-                  // Force PDF.js to re-render the high-res text
-                  window.PDFViewerApplication.pdfViewer.currentScale = targetScale;
-                  
-                  const actualScale = window.PDFViewerApplication.pdfViewer.currentScale;
-                  const ratio = actualScale / oldScale;
-                  
-                  // The exact mathematical offset to keep the page from sliding
-                  const newScrollLeft = (startFocalX + startScrollLeft) * ratio - startFocalX;
-                  const newScrollTop = (startFocalY + startScrollTop) * ratio - startFocalY;
-                  
-                  container.scrollLeft = newScrollLeft;
-                  container.scrollTop = newScrollTop;
-                  
-                  // Failsafe: Re-apply exact scroll position on the next frame to prevent PDF.js from shifting it
-                  requestAnimationFrame(() => {
-                      container.scrollLeft = newScrollLeft;
-                      container.scrollTop = newScrollTop;
-                  });
-              }
-          }
-      };
-
-      container.addEventListener('touchend', endPinch, { capture: true, passive: false });
-      container.addEventListener('touchcancel', endPinch, { capture: true, passive: false });
     </script>
   </body>
 </html>
