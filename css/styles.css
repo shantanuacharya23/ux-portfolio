@@ -445,7 +445,7 @@ h1 {
 /* ------------------------------ POPUP CONTACT CARD (RIGHT CLICK) ------------------------------ */
 #contact-card {
     position: fixed;
-    background: rgba(15, 32, 39, 0.95);
+    background: rgba(15, 32, 39, 0.875);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -497,6 +497,7 @@ h1 {
 .divider {
     color: rgba(255, 255, 255, 0.5); /* Muted for visual elegance - going against WCAG contrast value 0.6 */
     font-size: 0.85rem;
+    font-weight: 300; /* NEW: Makes the pipe symbol render thinner */
 }
 
 .card-link:last-child {
