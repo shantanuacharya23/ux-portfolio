@@ -1,4 +1,4 @@
-console.log("Website loaded successfully (II O III)");
+console.log("shantanuacharya.in website loaded successfully (II O III)");
 
 // ------------------------------ Contact Popup Card (RIGHT CLICK MANIPULATION) ------------------------------
 document.addEventListener("contextmenu", function (e) {
@@ -215,35 +215,6 @@ window.addEventListener('keydown', function(e) {
         console.log("Print function fully disabled.");
     }
 }, true);
-
-/*
-// ------------------------------ PERFORMANCE: SILENT PREFETCHING ------------------------------
-// window.addEventListener("load") ensures this ONLY runs after the entire website is 100% loaded
-window.addEventListener("load", () => {
-    
-    // 1. The assets to silently download in the background
-    const resourcesToPrefetch = [
-        "pdfjs/build/pdf.mjs",           // The PDF.js core engine
-        "pdfjs/build/pdf.worker.mjs",    // The PDF.js rendering worker
-        "pdfs/case-study-1.pdf",
-        "pdfs/case-study-2.pdf",
-        "pdfs/case-study-3.pdf",
-        "pdfs/case-study-4.pdf",
-        "pdfs/case-study-5.pdf",
-        "pdfs/shantanu_acharya_cv.pdf"
-    ];
-
-    // 2. Inject hidden prefetch tags into the HTML head
-    resourcesToPrefetch.forEach(url => {
-        const link = document.createElement("link");
-        link.rel = "prefetch";
-        link.href = url;
-        document.head.appendChild(link);
-    });
-    
-    console.log("Background prefetching initiated for instant modal loading.");
-});
-*/
 
 // ------------------------------ PERFORMANCE: SMART IDLE PREFETCHING ------------------------------
 window.addEventListener("load", () => {
