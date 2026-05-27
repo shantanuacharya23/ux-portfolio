@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Change 1: Add 'index' to the loop function so JavaScript knows which card was clicked
     portfolioCards.forEach((card, index) => {
+        // 1. YOUR EXISTING MOUSE CLICK LISTENER
         card.addEventListener("click", (e) => {
             if (e.target.tagName === 'A') return;
 
@@ -89,6 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Activate display states
                 pdfModal.classList.add("active");
                 document.body.style.overflow = "hidden";
+            }
+        });
+
+        // 2. THE NEW KEYBOARD ACCESSIBILITY LISTENER
+        card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault(); // Stops the browser from accidentally scrolling down
+                card.click();       // Automatically fires the mouse click logic written above
             }
         });
     });
