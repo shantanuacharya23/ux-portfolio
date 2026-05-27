@@ -495,7 +495,7 @@ h1 {
 }
 
 .divider {
-    color: rgba(255, 255, 255, 0.6); /* Increased for WCAG contrast */
+    color: rgba(255, 255, 255, 0.5); /* Muted for visual elegance - going against WCAG contrast value 0.6 */
     font-size: 0.85rem;
 }
 
