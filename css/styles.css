@@ -68,7 +68,7 @@ h1 {
     font-weight: 300;
 }
 
-.mobile-heading,
+.mobile-text,
 .mobile-subtext {
     display: none;
 }
@@ -595,12 +595,18 @@ footer {
 /* Responsive Breakpoints */
 @media (max-width: 768px) {
 
-    .desktop-heading,
+    .desktop-text {
+        display: none;
+    }
+
+    .mobile-text {
+        display: inline;
+    }
+
     .desktop-subtext {
         display: none;
     }
 
-    .mobile-heading,
     .mobile-subtext {
         display: block;
     }
