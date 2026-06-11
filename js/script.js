@@ -76,11 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
 
                 // Change 2: Dynamic width logic based on the card's numerical position
-                if (index === 4) {
-                    // The 5th card (MindMeld Concept - Index 4)
+                if (index === 3) {
+                    // The 4th card (MindMeld Concept - Index 3)
                     pdfViewer.style.width = "85%";
                 } else {
-                    // All other cards (Indexes 0, 1, 2, 3)
+                    // All other cards (Indexes 0, 1, 2, 4)
                     pdfViewer.style.width = "95%";
                 }
                 
