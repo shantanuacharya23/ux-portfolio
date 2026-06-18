@@ -90,6 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Activate display states
                 pdfModal.classList.add("active");
                 document.body.style.overflow = "hidden";
+                
+                // NEW: Inject a fake history state to trap the mobile back button
+                history.pushState({ modalOpen: true }, "", window.location.href);
             }
         });
 
@@ -133,12 +136,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Activate display states
                 pdfModal.classList.add("active");
                 document.body.style.overflow = "hidden";
+
+                // NEW: Inject a fake history state to trap the mobile back button
+                history.pushState({ modalOpen: true }, "", window.location.href);
             }
         });
     }
 
     // Close Modal Handler
-    const closeModal = () => {
+    const closeModal = (isPopState = false) => {
         pdfModal.classList.remove("active");
         document.body.style.overflow = ""; // Restore window viewport scrolling
         
@@ -146,6 +152,12 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             pdfViewer.setAttribute("src", "");
         }, 300);
+
+        // NEW: If closed via UI (X button, Esc key, clicking background), 
+        // we must manually pop the fake history state we created.
+        if (isPopState !== true && history.state && history.state.modalOpen) {
+            history.back();
+        }
     };
 
     closeModalBtn.addEventListener("click", closeModal);
@@ -162,6 +174,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// NEW: Listen for the mobile device Back button (or browser back button)
+    window.addEventListener("popstate", () => {
+        if (pdfModal.classList.contains("active")) {
+            // Passing 'true' tells closeModal that the history stack has already been popped natively
+            closeModal(true); 
+        }
+    });
 
 // ------------------------------ HERO SCROLL TRIGGER ------------------------------
 const scrollTrigger = document.getElementById("scroll-trigger");
