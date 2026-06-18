@@ -148,12 +148,17 @@ document.addEventListener("DOMContentLoaded", () => {
         pdfModal.classList.remove("active");
         document.body.style.overflow = ""; // Restore window viewport scrolling
         
+        // Strip focus to ensure clean accessibility state
+        if (document.activeElement) {
+            document.activeElement.blur();
+        }
+        
         // Clear viewport target to terminate background connection instances cleanly
         setTimeout(() => {
             pdfViewer.contentWindow.location.replace("about:blank");
         }, 300);
 
-        // NEW: If closed via UI (X button, Esc key, clicking background), 
+        // If closed via UI (X button, Esc key, clicking background), 
         // we must manually pop the fake history state we created.
         if (isPopState !== true && history.state && history.state.modalOpen) {
             history.back();
