@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Point the viewer directly to the .pdf file, force it to page 1, and force it to fill the width
                 const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(absolutePdfUrl)}#page=1&zoom=page-width`;
 
-                // Update attributes
-                pdfViewer.setAttribute("src", localViewerUrl);
+                // Update attributes (Using replace to prevent history corruption)
+                pdfViewer.contentWindow.location.replace(localViewerUrl);
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
 
                 // Change 2: Dynamic width logic based on the card's numerical position
@@ -125,8 +125,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Point the viewer directly to the .pdf file, force it to page 1
                 const localViewerUrl = `pdfjs/web/viewer.html?file=${encodeURIComponent(absolutePdfUrl)}#page=1`;
 
-                // Update attributes
-                pdfViewer.setAttribute("src", localViewerUrl);
+                // Update attributes (Using replace to prevent history corruption)
+                pdfViewer.contentWindow.location.replace(localViewerUrl);
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
 
                 // NEW: Restore the iframe to 100% width for the CV
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Clear viewport target to terminate background connection instances cleanly
         setTimeout(() => {
-            pdfViewer.setAttribute("src", "");
+            pdfViewer.contentWindow.location.replace("about:blank");
         }, 300);
 
         // NEW: If closed via UI (X button, Esc key, clicking background), 
@@ -173,15 +173,15 @@ document.addEventListener("DOMContentLoaded", () => {
             closeModal();
         }
     });
-});
 
-// NEW: Listen for the mobile device Back button (or browser back button)
+    // NEW: Listen for the mobile device Back button (or browser back button)
     window.addEventListener("popstate", () => {
         if (pdfModal.classList.contains("active")) {
             // Passing 'true' tells closeModal that the history stack has already been popped natively
             closeModal(true); 
         }
     });
+});
 
 // ------------------------------ HERO SCROLL TRIGGER ------------------------------
 const scrollTrigger = document.getElementById("scroll-trigger");
