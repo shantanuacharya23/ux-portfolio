@@ -151,12 +151,6 @@ h1 {
     transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s;
 }
 
-.portfolio-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(139, 220, 255, 0.4);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-}
-
 .card-image-wrapper {
     position: relative;
     width: 100%;
@@ -170,10 +164,6 @@ h1 {
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
-}
-
-.portfolio-card:hover .portfolio-img {
-    transform: scale(1.04);
 }
 
 /* Overlay Activation On Hover */
@@ -190,10 +180,6 @@ h1 {
     align-items: center;
     opacity: 0;
     transition: opacity 0.25s ease;
-}
-
-.portfolio-card:hover .card-overlay {
-    opacity: 1;
 }
 
 .btn-view-pdf {
@@ -232,6 +218,23 @@ h1 {
     color: rgba(255, 255, 255, 0.65);
     line-height: 1.5;
     margin-bottom: 0;
+}
+
+/* ------------------------------ HOVER EFFECTS (DESKTOP/MOUSE ONLY) ------------------------------ */
+@media (hover: hover) and (pointer: fine) {
+    .portfolio-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(139, 220, 255, 0.4);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .portfolio-card:hover .portfolio-img {
+        transform: scale(1.04);
+    }
+
+    .portfolio-card:hover .card-overlay {
+        opacity: 1;
+    }
 }
 
 /* ------------------------------ SECTION 3: WORK PHILOSOPHY ------------------------------ */
