@@ -191,21 +191,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const targetCase = urlParams.get('case');
 
-    // --- NEW: URL Parameter Modal Auto-Trigger ---
-    const urlParams = new URLSearchParams(window.location.search);
-    const targetCase = urlParams.get('case');
-
     if (targetCase) {
-        // A small 100ms delay ensures the DOM and CSS are fully painted before firing the modal
+        // A small 250ms delay ensures the DOM is painted and listeners are fully active before firing the modal
         setTimeout(() => {
-            if (targetCase === 'opsbridge') {
+            if (targetCase === 'opsbridge' && portfolioCards[0]) {
                 portfolioCards[0].click(); // Triggers the 1st card (OpsBridge)
-            } else if (targetCase === 'auditiq') {
+            } else if (targetCase === 'auditiq' && portfolioCards[1]) {
                 portfolioCards[1].click(); // Triggers the 2nd card (AuditIQ)
-            } else if (targetCase === 'kpmg') {
+            } else if (targetCase === 'kpmg' && portfolioCards[2]) {
                 portfolioCards[2].click(); // Triggers the 3rd card (KPMG)
             }
-        }, 100); 
+        }, 250);
     }
 });
 
