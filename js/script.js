@@ -186,6 +186,27 @@ document.addEventListener("DOMContentLoaded", () => {
             closeModal(true); 
         }
     });
+
+    // --- NEW: URL Parameter Modal Auto-Trigger ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetCase = urlParams.get('case');
+
+    // --- NEW: URL Parameter Modal Auto-Trigger ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetCase = urlParams.get('case');
+
+    if (targetCase) {
+        // A small 100ms delay ensures the DOM and CSS are fully painted before firing the modal
+        setTimeout(() => {
+            if (targetCase === 'opsbridge') {
+                portfolioCards[0].click(); // Triggers the 1st card (OpsBridge)
+            } else if (targetCase === 'auditiq') {
+                portfolioCards[1].click(); // Triggers the 2nd card (AuditIQ)
+            } else if (targetCase === 'kpmg') {
+                portfolioCards[2].click(); // Triggers the 3rd card (KPMG)
+            }
+        }, 100); 
+    }
 });
 
 // ------------------------------ HERO SCROLL TRIGGER ------------------------------
