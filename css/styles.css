@@ -20,23 +20,21 @@ body {
 
 /* ------------------------------ SECTION 1: HERO BANNER (FULL VIEWPORT) ------------------------------ */
 .hero-section {
-    min-height: 100vh; /* Changed this back to 100vh so it always covers the full screen */
-    padding-bottom: calc(100vh - 100svh); /* NEW: Pushes the visual center up into the safe zone */
+    min-height: 100vh; /* The background covers the absolute max screen size (No jerks, no bottom gaps) */
     width: 100%;
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
+    display: block; /* Removed flex so the content sits correctly at the top */
 }
 
 .main-content {
-    flex: 1;
+    min-height: 100svh; /* The content sizes itself perfectly to the safe visible area */
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
+    position: relative; /* NEW: We anchor the absolute positioned arrow here */
 }
 
 .logo {
@@ -76,11 +74,11 @@ h1 {
 /* Scroll Prompt Indicator */
 .scroll-indicator {
     position: absolute;
-    bottom: calc(100vh - 100svh + 30px); /* NEW: Mathematically floats it exactly 30px above the browser UI */
+    bottom: 30px; /* Restored to a simple 30px, anchored safely to the visible svh area */
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    color: rgba(255, 255, 255, 0.5); /* Muted for visual elegance - going against WCAG contrast value 0.75 */
+    color: rgba(255, 255, 255, 0.5);
     font-size: 0.75rem;
     cursor: pointer;
 }
