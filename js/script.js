@@ -1,4 +1,4 @@
-console.log("shantanuacharya.in website loaded successfully (II O III)");
+console.log("shantanuacharya.in website has been loaded successfully (II O III)");
 
 // ------------------------------ Contact Popup Card (RIGHT CLICK MANIPULATION) ------------------------------
 document.addEventListener("contextmenu", function (e) {
