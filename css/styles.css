@@ -13,15 +13,15 @@ html, body {
 
 /* Base Body Framework */
 body {
-    min-height: 100svh; /* Changed from 100dvh */
+    min-height: 100vh; /* Changed this back to 100vh */
     display: flex;
     flex-direction: column;
 }
 
 /* ------------------------------ SECTION 1: HERO BANNER (FULL VIEWPORT) ------------------------------ */
 .hero-section {
-    min-height: 100vh;
-    min-height: 100svh; /* Changed from 100dvh */
+    min-height: 100vh; /* Changed this back to 100vh so it always covers the full screen */
+    padding-bottom: calc(100vh - 100svh); /* NEW: Pushes the visual center up into the safe zone */
     width: 100%;
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     display: flex;
@@ -76,7 +76,7 @@ h1 {
 /* Scroll Prompt Indicator */
 .scroll-indicator {
     position: absolute;
-    bottom: 30px;
+    bottom: calc(100vh - 100svh + 30px); /* NEW: Mathematically floats it exactly 30px above the browser UI */
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
