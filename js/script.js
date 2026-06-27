@@ -236,10 +236,15 @@ window.addEventListener("scroll", () => {
 });
 
 backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    // Rely purely on the CSS smooth scroll to prevent mobile Chrome calculation bugs
+    window.scrollTo(0, 0);
+    
+    // The Failsafe: If the browser UI lags and stops the scroll early, this forces it to absolute zero after the animation finishes.
+    setTimeout(() => {
+        if (window.scrollY > 0) {
+            window.scrollTo(0, 0);
+        }
+    }, 800);
 });
 
 // Set current auto-updating dynamic year context in footer
