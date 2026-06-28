@@ -28,9 +28,7 @@ body {
     flex-direction: column;
     justify-content: center;
     position: relative;
-
-    overflow-anchor: none; 
-    transition: min-height 0.3s ease-out;
+    overflow-anchor: none;
 }
 
 .main-content {
