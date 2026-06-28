@@ -691,6 +691,14 @@ footer {
         width: 100% !important;
         margin: 0 !important;
     }
+
+    /* ADD THIS AT THE BOTTOM OF THE MEDIA QUERY */
+    footer {
+        padding-bottom: 90px; /* Creates an invisible safe zone for the floating button */
+        padding-left: 20px;
+        padding-right: 20px;
+        line-height: 1.6; /* Ensures clean spacing if the text wraps on very narrow screens */
+    }
 }
 
 /* Block printing and Save as PDF */
