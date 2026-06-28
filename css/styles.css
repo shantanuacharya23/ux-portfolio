@@ -20,24 +20,27 @@ body {
 
 /* ------------------------------ SECTION 1: HERO BANNER (FULL VIEWPORT) ------------------------------ */
 .hero-section {
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100vh; /* Fixed max-height. Kills the jerk. Stops Section 2 from peeking. */
     width: 100%;
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: block; /* Removed flex so the sticky child works natively */
     position: relative;
-    overflow-anchor: none;
 }
 
 .main-content {
-    flex: 1;
+    height: 100svh; /* Locks content perfectly to the initial safe visible area */
+    width: 100%;
+    box-sizing: border-box; /* Ensures the 20px padding doesn't break the height */
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 20px;
+    
+    /* THE MAGIC ANTI-JERK BUFFER */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 
 .logo {
