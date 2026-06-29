@@ -409,6 +409,35 @@ h1 {
     flex-shrink: 0; /* Prevents header from compressed shifting */
 }
 
+/* --- NEW: Modal Header Action Buttons --- */
+.modal-action-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.modal-download-btn {
+    background: rgba(139, 220, 255, 0.05);
+    color: #8bdcff;
+    border: 1px solid rgba(139, 220, 255, 0.2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.modal-download-btn:hover {
+    background: rgba(139, 220, 255, 0.15);
+    border-color: #8bdcff;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+/* ---------------------------------------- */
+
 #pdf-modal-title {
     font-size: 1rem;
     font-weight: 600;
