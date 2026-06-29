@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pdfViewer = document.getElementById("pdf-viewer");
     const pdfModalTitle = document.getElementById("pdf-modal-title");
     const pdfFallbackLink = document.getElementById("pdf-download-fallback");
+    const modalDownloadBtn = document.getElementById("modal-download-cv-btn"); // NEW: Defines the download button
 
     // Change 1: Add 'index' to the loop function so JavaScript knows which card was clicked
     portfolioCards.forEach((card, index) => {
@@ -90,6 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Activate display states
                 pdfModal.classList.add("active");
                 document.body.style.overflow = "hidden";
+
+                // NEW: Security lock - Hide download button for Case Studies
+                modalDownloadBtn.style.display = "none";
                 
                 // NEW: Inject a fake history state to trap the mobile back button
                 history.pushState({ modalOpen: true }, "", window.location.href);
@@ -137,6 +141,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 pdfModal.classList.add("active");
                 document.body.style.overflow = "hidden";
 
+                // NEW: Reveal the download button and pass the PDF source
+                modalDownloadBtn.style.display = "flex"; 
+                modalDownloadBtn.setAttribute("href", absolutePdfUrl);
+
                 // NEW: Inject a fake history state to trap the mobile back button
                 history.pushState({ modalOpen: true }, "", window.location.href);
             }
@@ -147,6 +155,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeModal = (isPopState = false) => {
         pdfModal.classList.remove("active");
         document.body.style.overflow = ""; // Restore window viewport scrolling
+
+        // NEW: Reset download button visibility
+        modalDownloadBtn.style.display = "none";
         
         // Strip focus to ensure clean accessibility state
         if (document.activeElement) {
