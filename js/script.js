@@ -244,11 +244,29 @@ window.addEventListener("scroll", () => {
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
     if (isMobile) {
-        // MOBILE LOGIC: Added a 25px offset so the user must scroll deeper into the footer, preventing overlap
-        if (connectRect.bottom <= triggerPoint - 25) {
+        // MOBILE LOGIC: Dynamically calculate a smooth 0 to 1 opacity fade as the user enters the target zone
+        const targetPoint = triggerPoint + 150;
+        
+        if (connectRect.bottom <= targetPoint) {
+            // Unhide the element structurally so it can accept styling adjustments
             backToTopBtn.classList.add("show");
+            
+            // Calculate how many pixels deep into the 150px zone the user has traveled
+            const travelDistance = targetPoint - connectRect.bottom;
+            
+            // Map the progress linearly to a fractional percentage between 0.0 and 1.0
+            let mappedOpacity = travelDistance / 175; // 175px is double the fade zone to create a smoother transition
+            
+            // Enforce safe boundary clamps so the value never bugs out under extreme scrolling forces
+            if (mappedOpacity < 0) mappedOpacity = 0;
+            if (mappedOpacity > 1) mappedOpacity = 1;
+            
+            // Apply the real-time opacity directly to the DOM element
+            backToTopBtn.style.opacity = mappedOpacity;
         } else {
+            // Cleanly clear styles and drop display visibility when outside the zone
             backToTopBtn.classList.remove("show");
+            backToTopBtn.style.opacity = "";
         }
     } else {
         // DESKTOP LOGIC: Added a 120px offset so the user must scroll deeper into the let's connect section, for better UX
