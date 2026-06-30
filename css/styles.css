@@ -436,7 +436,11 @@ h1 {
     color: #ffffff;
     transform: translateY(-1px);
 }
-/* ---------------------------------------- */
+
+/* MATCHING ICON THICKNESS WITH CROSS BUTTON */
+.modal-download-btn i {
+    -webkit-text-stroke: 0.6px; 
+}
 
 #pdf-modal-title {
     font-size: 1rem;
@@ -450,7 +454,7 @@ h1 {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem; /* Keeps the smaller, proportionate size */
+    font-size: 0.8rem; /* Kept the smaller, proportionate size */
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -461,7 +465,7 @@ h1 {
     padding: 0;
     line-height: 1;
     transition: all 0.15s ease;
-    -webkit-text-stroke: 1px; /* NEW: Makes the icon bolder */
+    -webkit-text-stroke: 1px; /* NEW: Maked the icon bolder */
 }
 
 .close-modal-btn:hover {
@@ -694,7 +698,6 @@ footer {
         padding: 60px 0;
     }
 
-        /* ADD THIS PART */
     .portfolio-grid {
         grid-template-columns: 1fr;
     }
@@ -708,21 +711,25 @@ footer {
         grid-column: span 1 !important;
     }
 
-    /* CHANGED: Maximize modal real estate on small screens */
+    /* CHANGED: Maximized modal real estate on small screens */
     .modal-wrapper {
         width: 100%;
         height: 100vh;
         height: 100dvh;
     }
 
-    /* NEW: Force the iframe to ignore JavaScript scaling on mobile screens */
+    /* NEW: Forced the iframe to ignore JavaScript scaling on mobile screens */
     #pdf-viewer {
         width: 100% !important;
         margin: 0 !important;
     }
+
+    .back-to-top {
+        bottom: 55px; /* Moves the button exactly up from its default 28px position */
+    }
 }
 
-/* Block printing and Save as PDF */
+/* Blocked printing and Save as PDF */
 @media print {
     body {
         display: none !important;
