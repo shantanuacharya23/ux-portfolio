@@ -1,4 +1,4 @@
-console.log("shantanuacharya.in website has been loaded successfully (II O III)");
+console.log("shantanuacharya.in website loaded successfully (II O III)");
 
 // ------------------------------ Contact Popup Card (RIGHT CLICK MANIPULATION) ------------------------------
 document.addEventListener("contextmenu", function (e) {
@@ -236,13 +236,27 @@ const backToTopBtn = document.getElementById("backToTopBtn");
 const connectSection = document.getElementById("connect");
 
 window.addEventListener("scroll", () => {
-    const connectTop = connectSection.getBoundingClientRect().top;
+    // Get the full geometric dimensions of the Let's Connect section
+    const connectRect = connectSection.getBoundingClientRect();
     const triggerPoint = window.innerHeight;
+    
+    // Check if the user is on a mobile device (matching your 768px CSS breakpoint)
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-    if (connectTop <= triggerPoint) {
-        backToTopBtn.classList.add("show");
+    if (isMobile) {
+        // MOBILE LOGIC: Added a 25px offset so the user must scroll deeper into the footer, preventing overlap
+        if (connectRect.bottom <= triggerPoint - 25) {
+            backToTopBtn.classList.add("show");
+        } else {
+            backToTopBtn.classList.remove("show");
+        }
     } else {
-        backToTopBtn.classList.remove("show");
+        // DESKTOP LOGIC: Added a 120px offset so the user must scroll deeper into the let's connect section, for better UX
+        if (connectRect.top <= triggerPoint - 120) {
+            backToTopBtn.classList.add("show");
+        } else {
+            backToTopBtn.classList.remove("show");
+        }
     }
 });
 
