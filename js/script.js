@@ -311,11 +311,11 @@ window.addEventListener("load", () => {
             const resourcesToPrefetch = [
                 "pdfjs/build/pdf.mjs",           
                 "pdfjs/build/pdf.worker.mjs",    
-                "pdfs/case-study-1.pdf",
-                "pdfs/case-study-2.pdf",
-                "pdfs/case-study-3.pdf",
-                "pdfs/case-study-4.pdf",
-                "pdfs/case-study-5.pdf",
+                "pdfs/cs1-shantanuacharya-x7k9p2m.pdf",
+                "pdfs/cs2-shantanuacharya-v4b8n1q.pdf",
+                "pdfs/cs3-shantanuacharya-j9f3c8z.pdf",
+                "pdfs/cs4-shantanuacharya-t2w5r7y.pdf",
+                "pdfs/cs5-shantanuacharya-h6d4m9p.pdf",
                 "pdfs/shantanu_acharya_cv.pdf"
             ];
 
@@ -336,4 +336,29 @@ window.addEventListener("load", () => {
     } else {
         initPrefetch();
     }
+});
+
+// ------------------------------ SECURITY: EMAIL OBFUSCATION ------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+    const secureMailLinks = document.querySelectorAll(".secure-mail");
+    
+    secureMailLinks.forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault(); // Stops the page from jumping to the top
+            
+            // Reconstruct the email address only when clicked
+            const user = this.getAttribute("data-user");
+            const domain = this.getAttribute("data-domain");
+            const action = this.getAttribute("data-action");
+            
+            const constructedEmail = user + "@" + domain;
+            
+            // Route to the correct email client
+            if (action === "gmail") {
+                window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${constructedEmail}`, "_blank");
+            } else {
+                window.location.href = `mailto:${constructedEmail}`;
+            }
+        });
+    });
 });
