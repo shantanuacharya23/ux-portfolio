@@ -311,11 +311,11 @@ window.addEventListener("load", () => {
             const resourcesToPrefetch = [
                 "pdfjs/build/pdf.mjs",           
                 "pdfjs/build/pdf.worker.mjs",    
-                "pdfs/cs1-shantanuacharya-x7k9p2m.pdf",
-                "pdfs/cs2-shantanuacharya-v4b8n1q.pdf",
-                "pdfs/cs3-shantanuacharya-j9f3c8z.pdf",
-                "pdfs/cs4-shantanuacharya-t2w5r7y.pdf",
-                "pdfs/cs5-shantanuacharya-h6d4m9p.pdf",
+                "pdfs/cs1-shantanuacharya-x7k9p2m.pdf?v=2",
+                "pdfs/cs2-shantanuacharya-v4b8n1q.pdf?v=2",
+                "pdfs/cs3-shantanuacharya-j9f3c8z.pdf?v=2",
+                "pdfs/cs4-shantanuacharya-t2w5r7y.pdf?v=2",
+                "pdfs/cs5-shantanuacharya-h6d4m9p.pdf?v=2",
                 "pdfs/shantanu_acharya_cv.pdf"
             ];
 
