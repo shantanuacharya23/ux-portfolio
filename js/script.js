@@ -1,5 +1,11 @@
 console.log("shantanuacharya.in website loaded successfully (II O III)");
 
+// --- Google Analytics Initialization ---
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-MT0J9RRR4C');
+
 // ------------------------------ Contact Popup Card (RIGHT CLICK MANIPULATION) ------------------------------
 document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
