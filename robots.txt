@@ -1,4 +1,34 @@
+# Allow all standard search engines
 User-agent: *
 Allow: /
 
+# Unblock OpenAI (GPTBot for training)
+User-agent: GPTBot
+Allow: /
+
+# Unblock Anthropic (ClaudeBot for training)
+User-agent: ClaudeBot
+Allow: /
+
+# Unblock Google Gemini Training
+User-agent: Google-Extended
+Allow: /
+
+# Unblock Common Crawl (Used by many open-source LLMs)
+User-agent: CCBot
+Allow: /
+
+# Unblock Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Unblock Meta AI
+User-agent: FacebookBot
+Allow: /
+
+# Unblock ByteDance / TikTok AI
+User-agent: Bytespider
+Allow: /
+
+# Website Sitemap
 Sitemap: https://shantanuacharya.in/sitemap.xml
