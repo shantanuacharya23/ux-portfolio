@@ -1,0 +1,19 @@
+# Shantanu Acharya - Lead Enterprise Product Designer
+> Lead Enterprise Product Designer with 11+ years of experience architecting complex B2B SaaS platforms, enterprise operational systems, and cross-platform workflows. Specialized in information architecture and data-dense dashboards. Based in Pune, India.
+
+## Key Case Studies & Projects
+- [OpsBridge Exception Management Platform](https://shantanuacharya.in/pdfs/cs1-shantanuacharya-x7k9p2m.pdf): Enterprise Operations UX. Designed a real-time exception management platform connecting field and operations teams through shared visibility, workflows, and faster decisions.
+- [AuditIQ Platform](https://shantanuacharya.in/pdfs/cs2-shantanuacharya-v4b8n1q.pdf): Audit & Compliance UX. Redesigned enterprise audit workflows with structured control tracking, faster scanability, and operational accountability.
+- [KPMG Tax Navigator](https://shantanuacharya.in/pdfs/cs3-shantanuacharya-j9f3c8z.pdf): Mobile Product Design. Designed a public-facing mobile experience for curated tax insights, personalised discovery, and enterprise-aligned usability.
+- [MindMeld Wellness App Concept](https://shantanuacharya.in/pdfs/cs4-shantanuacharya-t2w5r7y.pdf): Empathy-Led UX. Crafted an emotional wellness experience with frictionless daily check-ins and empathy-driven information architecture.
+- [Nomad Notes Travel Website](https://shantanuacharya.in/pdfs/cs5-shantanuacharya-h6d4m9p.pdf): Responsive Web UX. Created a responsive travel experience focused on mobile-first exploration, destination discoverability, and visual simplicity.
+
+## Design Philosophy & Expertise
+- Information Architecture First: Organising complex workflows and high-density information into intuitive, scalable user experiences.
+- Clarity Within Complexity: Prioritising usability, scanability, and efficient task completion for enterprise systems without oversimplifying workflows.
+- Cross-Platform Consistency: Ensuring experiences remain consistent, adaptable, and user-focused across enterprise dashboards, responsive websites, and mobile applications.
+
+## Professional Resources
+- [Curriculum Vitae](https://shantanuacharya.in/pdfs/shantanu_acharya_cv.pdf): Full CV detailing 11+ years of UX/UI experience in B2B SaaS and enterprise environments.
+- [LinkedIn Profile](https://www.linkedin.com/in/shantanu-acharya-ux/): Professional connections, career history, and endorsements.
+- [Portfolio Website](https://shantanuacharya.in/): Main portfolio landing page.
