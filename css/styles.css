@@ -735,3 +735,24 @@ footer {
         display: none !important;
     }
 }
+
+/* Fix visual breathing room for View CV dropdown toggle */
+.cv-link.dropdown-toggle::after {
+    margin-left: 0.65em !important;
+    vertical-align: 0.15em;
+}
+
+/* Unify Dropdown Typography with Connect Buttons */
+.cv-pdf-link {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.844rem !important;
+    font-weight: 500 !important;
+    padding: 10px 24px !important;
+    letter-spacing: 0.2px;
+    transition: background-color 0.2s ease;
+}
+
+/* Subtle hover state for the dropdown items */
+.cv-pdf-link:hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+}
