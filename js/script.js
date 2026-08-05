@@ -115,18 +115,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Handle View CV button click to display inline within the existing modal framework
-    const cvLink = document.querySelector(".cv-link");
-    if (cvLink) {
-        cvLink.addEventListener("click", (e) => {
+    // Handle View CV dropdown item clicks to display inline within the existing modal framework
+    const cvPdfLinks = document.querySelectorAll(".cv-pdf-link");
+
+    cvPdfLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
             e.preventDefault(); // Stop browser from jumping or opening a new tab
             
-            const relativePdfUrl = cvLink.getAttribute("data-pdf");
-            const cvTitle = cvLink.getAttribute("data-title");
+            const relativePdfUrl = link.getAttribute("data-pdf");
+            const cvTitle = link.getAttribute("data-title");
             
-            // NEW: Self-Hosted Mozilla PDF.js Architecture
             if (relativePdfUrl) {
-                // Fix: Use cvTitle instead of the undefined caseStudyTitle
                 pdfModalTitle.textContent = cvTitle;
 
                 // 1. Define the actual PDF path
@@ -139,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 pdfViewer.contentWindow.location.replace(localViewerUrl);
                 pdfFallbackLink.setAttribute("href", absolutePdfUrl);
 
-                // NEW: Restore the iframe to 100% width for the CV
+                // Restore the iframe to 100% width for the CV
                 pdfViewer.style.width = "100%";
                 pdfViewer.style.margin = "0";
 
@@ -147,15 +146,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 pdfModal.classList.add("active");
                 document.body.style.overflow = "hidden";
 
-                // NEW: Reveal the download button and pass the PDF source
+                // Reveal the download button and pass the correct PDF source
                 modalDownloadBtn.style.display = "flex"; 
                 modalDownloadBtn.setAttribute("href", absolutePdfUrl);
+                
+                // NEW: Ensure the download file name matches the CV they are currently viewing
+                const fileName = relativePdfUrl.split('/').pop();
+                modalDownloadBtn.setAttribute("download", fileName);
 
-                // NEW: Inject a fake history state to trap the mobile back button
+                // Inject a fake history state to trap the mobile back button
                 history.pushState({ modalOpen: true }, "", window.location.href);
             }
         });
-    }
+    });
 
     // Close Modal Handler
     const closeModal = (isPopState = false) => {
@@ -322,7 +325,8 @@ window.addEventListener("load", () => {
                 "pdfs/cs3-shantanuacharya-j9f3c8z.pdf?v=2",
                 "pdfs/cs4-shantanuacharya-t2w5r7y.pdf?v=2",
                 "pdfs/cs5-shantanuacharya-h6d4m9p.pdf?v=2",
-                "pdfs/shantanu_acharya_cv.pdf"
+                "pdfs/shantanu_acharya_cv.pdf",
+                "pdfs/shantanu_acharya_eu_cv.pdf"
             ];
 
             resourcesToPrefetch.forEach(url => {
