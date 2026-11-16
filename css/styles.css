@@ -632,6 +632,17 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
 
+/* Footer Copyright Link */
+.copyright-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.copyright-link:hover {
+    color: rgba(168, 229, 255, 0.85);
+}
+
 /* Responsive Breakpoints */
 @media (max-width: 768px) {
 
