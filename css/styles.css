@@ -639,8 +639,10 @@ footer {
     transition: color 0.2s ease;
 }
 
-.copyright-link:hover {
-    color: rgba(168, 229, 255, 0.85);
+@media (hover: hover) and (pointer: fine) {
+    .copyright-link:hover {
+        color: rgba(168, 229, 255, 0.85);
+    }
 }
 
 /* Responsive Breakpoints */
