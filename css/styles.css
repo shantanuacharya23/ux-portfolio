@@ -636,13 +636,13 @@ footer {
 .copyright-link {
     color: inherit;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.15s ease;
+    outline: none; /* Prevents default browser focus highlights */
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .copyright-link:hover {
-        color: rgba(168, 229, 255, 0.85);
-    }
+/* Using :active instead of :hover prevents the color from sticking after tab switch */
+.copyright-link:active {
+    color: rgba(168, 229, 255, 0.85);
 }
 
 /* Responsive Breakpoints */
